@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 	require 'open-uri'
 
+
 	def image
 		# http://static4.businessinsider.com/image/54228ba76da8110a73d652eb-960/emma-watson.jpg
     	open(CGI::unescape(params[:url]), 'rb') do |f|
@@ -10,10 +11,11 @@ class HomeController < ApplicationController
 
 	def get_page
 		mechanize = Mechanize.new
-		page = mechanize.get(params[:page])
+		page_url = params[:page] 
+		page = mechanize.get(page_url)
 		total_content = "<script type='text/javascript' src= 'https://code.jquery.com/jquery-2.1.4.min.js'></script>".html_safe + page.body.html_safe + script(params[:page])
-		File.open(Rails.root.to_s+'/public/scrap.html', 'wb') { |file| file.write(total_content) }
-		redirect_to '/scrap'
+		File.open(Rails.root.to_s+'/public/scraper.html', 'wb') { |file| file.write(total_content) }
+		redirect_to '/scraper.html'
 	end
 
 	def script(page)
