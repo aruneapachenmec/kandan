@@ -1,7 +1,5 @@
 class HomeController < ApplicationController
 	require 'open-uri'
-
-
 	def image
 		# http://static4.businessinsider.com/image/54228ba76da8110a73d652eb-960/emma-watson.jpg
     	open(CGI::unescape(params[:url]), 'rb') do |f|
